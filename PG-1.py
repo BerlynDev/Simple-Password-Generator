@@ -1,6 +1,7 @@
 import string
 import random
 
+#open('SavedPws.csv', ('r', 'a', 'w', 'x'))
 
 letters = string.ascii_letters
 digitss = string.digits
@@ -37,15 +38,17 @@ def super_strong_PGv1 (length, howmuch):
 
 def super_strong_PGv2 (length, howmuch, Clists):
     count = 0
-    while count < howmuch:
-        iSPG = ""
-        while len(iSPG) < length:
-            lista = globals().get(Clists) #esto hace q se pueda usar los nombres de listas como inputs del usuario, sino tomara lo q el usuario puso para generar el pw
-            temporary = ''
-            iSPG += str(random.choice(lista))
-            temporary = ''.join(iSPG)
-        print (temporary)
-        count = count + 1
+    with open('SavedPws.csv', 'a') as f:
+        while count < howmuch:
+            iSPG = ""
+            while len(iSPG) < length:
+                lista = globals().get(Clists) #esto hace q se pueda usar los nombres de listas como inputs del usuario, sino tomara lo q el usuario puso para generar el pw
+                temporary = ''
+                iSPG += str(random.choice(lista))
+                temporary = ''.join(iSPG)
+            print (temporary)
+            f.write(temporary + '\n')
+            count = count + 1
 
 super_strong_PGv2(int(input('How many characters do you want for your password? ')), int(input('How many passwords do you want to generate ')), input('What charactrers do you want in your password? \n Letras y numeros \n Letras, numeros y caracteres especiiales ?'))
 
